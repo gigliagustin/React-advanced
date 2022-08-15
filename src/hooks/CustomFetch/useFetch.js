@@ -10,11 +10,11 @@ const useFetch = (url) => {
 
   const getData = async () => {
     const { data } = await axios(url);
-    console.log(data.results);
+    console.log(data);
     setDataFetch({
       loading: false,
       error: null,
-      data: data.results,
+      data,
     });
   };
   useEffect(() => {

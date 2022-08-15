@@ -7,14 +7,17 @@ import useFetch from './hooks/CustomFetch/useFetch';
 const App = () => {
   const [characterId, setCharacterId] = useState(1);
   const { data, loading } = useFetch('https://rickandmortyapi.com/api/character');
+  const dataCharacterId = useFetch(`https://rickandmortyapi.com/api/character/${characterId}`);
 
   const getCharacterId = (id) => {
     setCharacterId(id);
   };
   const getCharacterById = () => {
-    fetch(`https://rickandmortyapi.com/api/character/${characterId}`)
+    console.log(dataCharacterId);
+    /* fetch(`https://rickandmortyapi.com/api/character/${characterId}`)
       .then(resp => resp.json())
       .then(json => console.log(json));
+      */
   };
 
   useEffect(() => {
@@ -24,7 +27,7 @@ const App = () => {
   return (
     <div className="App">
        { loading && <p>Loading...</p> }
-      { data?.map(character => (
+      { data?.results.map(character => (
         <Cards
           character={character}
           key={character.id}
