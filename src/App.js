@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-// import axios from 'axios';
 import { Cards } from './components/Cards';
+import Header from './components/Header/Header';
 import useFetch from './hooks/CustomFetch/useFetch';
+import { ThemeProvider } from './providers/ThemeProvider';
 
 const App = () => {
   const [characterId, setCharacterId] = useState(1);
@@ -14,10 +15,6 @@ const App = () => {
   };
   const getCharacterById = () => {
     console.log(dataCharacterId);
-    /* fetch(`https://rickandmortyapi.com/api/character/${characterId}`)
-      .then(resp => resp.json())
-      .then(json => console.log(json));
-      */
   };
 
   useEffect(() => {
@@ -25,15 +22,18 @@ const App = () => {
     console.log(characterId);
   }, [characterId]);
   return (
-    <div className="App">
-       { loading && <p>Loading...</p> }
-      { data?.results.map(character => (
-        <Cards
-          character={character}
-          key={character.id}
-          getCharacterId={getCharacterId}
-          />))}
-    </div>
+    <ThemeProvider>
+      <Header />
+      <div className="App">
+        { loading && <p>Loading...</p> }
+        { data?.results.map(character => (
+          <Cards
+            character={character}
+            key={character.id}
+            getCharacterId={getCharacterId}
+            />))}
+      </div>
+    </ThemeProvider>
   );
 };
 
